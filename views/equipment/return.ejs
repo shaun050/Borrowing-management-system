@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Other head elements -->
+  <!-- Include Flatpickr Library -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+  
+    <% if (locals.messages && locals.messages.error && locals.messages.error.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= locals.messages.error %>
+        </div>
+    <% } %>
+
+    <% if (locals.messages && locals.messages.success && locals.messages.success.length > 0) { %>
+        <div class="alert alert-success">
+            <%= locals.messages.success %>
+        </div>
+    <% } %>
+
+
+  <!-- Header Section -->
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Equipment Return: <%= equipment.equipName %></h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button class="btn btn-sm btn-outline-secondary">?</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb and Metadata Section -->
+  <div class="col py-3">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/issue">Return Equipment</a></li>
+            <li class="breadcrumb-item active"><%= equipment.equipName %></li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col text-end fw-lighter">
+        <b>Last Updated: <%= equipment.updatedAt %></b>
+        <b>UserId: <%= equipment._id %></b>
+      </div>
+    </div>
+  </div>
+
+  <!-- Return Form Section -->
+  <form action="/return/<%= equipment._id %>" method="POST">
+    <!-- Employee Details Section -->
+    <div class="row form-group mb-4">
+      <div class="col">
+        <label for="employeeId">Employee ID</label>
+        <select name="employeeId" id="employeeId" class="form-control" required>
+          <% locals.registeredEmployees.forEach(employee => { %>
+            <option value="<%= employee.employeeId %>"><%= employee.employeeId %></option>
+          <% }); %>
+        </select>
+      </div>
+
+
+    <!-- Return Quantity Section -->
+    <div class="row form-group mb-4">
+      <div class="col">
+        <label for="returnQuantity">Return Quantity</label>
+<input type="number" class="form-control" id="returnQuantity" name="returnQuantity" placeholder="Return Quantity" required>
+
+<% if (borrowDetails && borrowDetails.length > 0) { %>
+  <p class="text-muted">Amount already borrowed: <%= borrowDetails[0].borrowQuantity %></p>
+<% } else { %>
+  <p class="text-muted">No previous borrowings for this equipment.</p>
+<% } %>
+      </div>
+    </div>
+
+    <!-- Form Submission Section -->
+    <div class="form-group mb-4">
+      <button type="submit" class="btn btn-primary">Return Equipment</button>
+    </div>
+  </form>
+</body>
+
+</html>

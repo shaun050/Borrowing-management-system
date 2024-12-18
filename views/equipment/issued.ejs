@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Issued Details</h1>
+</div>
+
+<% issuedEquipment.forEach((equipment, equipIndex) => { %>
+    <div class="card mb-4 hover-card">
+        <div class="card-header" style="background-color: #FFC436; color: #fff;" data-bs-toggle="collapse" data-bs-target="#equipment<%= equipIndex %>" aria-expanded="false" aria-controls="equipment<%= equipIndex %>">
+            <h5 class="mb-0">Equipment Issued: <%= equipment.equipName %></h5>
+        </div>
+        <div id="equipment<%= equipIndex %>" class="collapse">
+            <div class="card-body">
+                <% equipment.borrowHistory.forEach((issue, index) => { %>
+                    <div class="employee-details">
+                        <% if (issue.employee) { %>
+                            <p class="mb-1"><strong class="text-success">Employee Name:</strong> <%= issue.employee.employeeName %></p>
+                            <p class="mb-1"><strong class="text-success">Employee ID:</strong> <%= issue.employee.employeeId %></p>
+                            <p class="mb-1"><strong class="text-success">Employee Email:</strong> <%= issue.employee.employeeEmail %></p>
+                        <% } else { %>
+                            <p class="mb-1"><strong class="text-danger">Employee details not available</strong></p>
+                        <% } %>
+                        <p class="mb-1"><strong class="text-info">Borrowed Till:</strong> <%= issue.tillDate %> </p>
+                        <p class="mb-1"><strong class="text-info">Borrowed Quantity:</strong> <%= issue.borrowQuantity %></p>
+                        <p class="mb-1"><strong class="text-info">Borrowed At:</strong> <%= issue.borrowedAt %></p>
+                    </div>
+                    <!-- Add a border partition after each employee's details except for the last one -->
+                    <% if (index !== equipment.borrowHistory.length - 1) { %>
+                        <hr class="my-4">
+                    <% } %>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+<% }); %>

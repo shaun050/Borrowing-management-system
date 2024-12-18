@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Other head elements -->
+  <!-- Include Flatpickr Library -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+  <!-- Add this code at the top of your borrow.ejs file -->
+  <% if (locals.messages.error && locals.messages.error.length > 0) { %>
+    <div class="alert alert-danger">
+      <%= locals.messages.error %>
+    </div>
+  <% } %>
+
+  <!-- The rest of your borrow.ejs content goes here -->
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Equipment Issue: <%= equipment.equipName %></h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button class="btn btn-sm btn-outline-secondary">?</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col py-3">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/issue">Issue Equipment</a></li>
+            <li class="breadcrumb-item active"><%= equipment.equipName %></li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col text-end fw-lighter">
+        <b>Last Updated: <%= equipment.updatedAt %></b>
+        <b>UserId: <%= equipment._id %></b>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+
+  <form method="POST" action="/borrow/<%= equipment._id %>">
+    <div class="row form-group mb-4">
+      <div class="col">
+        <label for="employeeId">Employee ID</label>
+        <select name="employeeId" id="employeeId" class="form-control" required>
+          <% registeredEmployees.forEach(employee => { %>
+            <option value="<%= employee.employeeId %>"><%= employee.employeeId %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="tillDate">Till Date</label>
+        <input type="text" class="form-control flatpickr" id="tillDate" name="tillDate" value="<%= equipment.tillDate %>" placeholder="Till Date" required>
+      </div>
+
+      <div class="col">
+        <label for="quan">Quantity</label>
+        <input type="number" class="form-control" id="quan" name="quan" value="<%= equipment.quan %>" placeholder="Quantity" required>
+      </div>
+
+      <input type="hidden" name="equipName" value="<%= equipment.equipName %>">
+    </div>
+
+    <div class="form-group mb-4">
+      <button type="submit" class="btn btn-primary">Issue Equipment</button>
+    </div>
+  </form>
+
+  <!-- Flatpickr Script -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      flatpickr('.flatpickr', {
+        enableTime: false,
+        dateFormat: "Y-m-d",
+      });
+    });
+  </script>
+
+  <!-- Other scripts and closing tags -->
+</body>
+
+</html>

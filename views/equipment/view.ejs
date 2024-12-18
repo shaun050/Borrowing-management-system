@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%= equipment.equipName %></h1>
+    <div class="btn-toolbar mb-2 mb-md 0">
+      <div class="btn-group me-2">
+        
+      </div>
+    </div>
+  </div>
+
+
+<div class="col py-3">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active"><%= equipment.equipName %></li>
+                </ol>
+              </nav>
+<div class="col text-end fw-lighter">
+    <b>Last Updated <%= equipment.updatedAt %></b>
+</div>
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+<ul class="list-group">
+
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Equipment:</b></div>
+        <div class="col"><%= equipment.equipName %> </div>
+      </div>
+    </li>
+
+    <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Equipment ID:</b></div>
+          <div class="col"><%= equipment.equipID %></div>
+        </div>
+      </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Quantity:</b></div>
+        <div class="col"><%= equipment.quan %></div>
+      </div>
+    </li>
+  
+    
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>details:</b></div>
+        <div class="col"><%= equipment.details %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Date Created:</b></div>
+        <div class="col"><%= equipment.createdAt %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Date Modified:</b></div>
+        <div class="col"><%= equipment.updatedAt %></div>
+      </div>
+    </li>
+
+    </ul>
